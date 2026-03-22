@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amiri Soilihi — Développeur Full Stack Junior</title>
+  <meta name="description" content="Portfolio d'Amiri Soilihi, Développeur Full Stack Junior spécialisé en Laravel et Angular, basé au Sénégal."/>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Devicons (tech logos) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"/>
+
+  <!-- Google Fonts: Clash Display + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: ['attribute','[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          colors: {
+            accent:  '#2563EB',
+            'accent-light': '#60A5FA',
+            'accent-glow': 'rgba(37,99,235,0.25)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ─── CSS Variables ──────────────────────────── */
+    :root {
+      --bg:       #ffffff;
+      --bg2:      #f8faff;
+      --bg3:      #eef2ff;
+      --surface:  #ffffff;
+      --border:   #e2e8f0;
+      --text:     #0f172a;
+      --text2:    #475569;
+      --text3:    #94a3b8;
+      --accent:   #2563EB;
+      --accent-l: #60A5FA;
+      --glow:     rgba(37,99,235,0.15);
+    }
+    [data-theme="dark"] {
+      --bg:       #080c14;
+      --bg2:      #0d1120;
+      --bg3:      #111827;
+      --surface:  #141b2d;
+      --border:   #1e2d45;
+      --text:     #f1f5f9;
+      --text2:    #94a3b8;
+      --text3:    #475569;
+      --accent:   #3b82f6;
+      --accent-l: #93c5fd;
+      --glow:     rgba(59,130,246,0.2);
+    }
+
+    /* ─── Base ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background .3s, color .3s;
+    }
+    ::selection { background: var(--accent); color: #fff; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+    /* ─── Loader ─────────────────────────────────── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #080c14;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px; transition: opacity .6s, visibility .6s;
+    }
+    #loader.hide { opacity: 0; visibility: hidden; }
+    .loader-name {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      color: #3b82f6;
+      letter-spacing: .12em;
+    }
+    .loader-bar-wrap {
+      width: 200px; height: 3px;
+      background: rgba(255,255,255,.08);
+      border-radius: 99px; overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #2563EB, #60A5FA);
+      border-radius: 99px;
+      animation: loadBar 1.6s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    @keyframes loadBar { to { width: 100%; } }
+
+    /* ─── Cursor dot ─────────────────────────────── */
+    #cursor-dot {
+      position: fixed; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); pointer-events: none; z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: transform .1s, width .2s, height .2s, opacity .2s;
+    }
+    #cursor-ring {
+      position: fixed; width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid var(--accent); pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform .18s ease, width .2s, height .2s, opacity .2s;
+      opacity: .5;
+    }
+    @media (hover: none) { #cursor-dot, #cursor-ring { display: none; } }
+
+    /* ─── Noise overlay ──────────────────────────── */
+    .noise-layer::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ─── Hero ───────────────────────────────────── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 0%, rgba(37,99,235,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 0% 80%, rgba(37,99,235,.08) 0%, transparent 60%),
+        var(--bg2);
+    }
+    .hero-grid {
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .35;
+    }
+    .tag-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--surface); color: var(--text2);
+      font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .type-cursor::after {
+      content: '|'; animation: blink .8s step-end infinite; color: var(--accent);
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .avatar-frame {
+      box-shadow:
+        0 0 0 3px var(--surface),
+        0 0 0 5px var(--accent),
+        0 0 40px var(--glow),
+        0 0 80px var(--glow);
+    }
+
+    /* ─── Navbar ─────────────────────────────────── */
+    #navbar { transition: all .35s; }
+    #navbar.scrolled {
+      background: rgba(8,12,20,.88) !important;
+      backdrop-filter: blur(20px) saturate(1.5);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+    }
+    [data-theme="light"] #navbar.scrolled { background: rgba(255,255,255,.92) !important; }
+    .nav-link {
+      position: relative; font-size: .8rem; font-weight: 600;
+      letter-spacing: .04em; color: var(--text2);
+      transition: color .2s; padding-bottom: 3px;
+    }
+    .nav-link::after {
+      content:''; position:absolute; left:0; bottom:0;
+      width:0; height:2px; background:var(--accent); border-radius:99px;
+      transition: width .25s;
+    }
+    .nav-link:hover { color: var(--accent-l); }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: var(--accent); }
+
+    /* ─── Sections ───────────────────────────────── */
+    section { position: relative; }
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: .7rem; color: var(--accent);
+      letter-spacing: .15em; text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; line-height: 1.15;
+      color: var(--text);
+    }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-l));
+      border-radius: 99px; margin-top: 10px;
+    }
+
+    /* ─── Cards ──────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(37,99,235,.12);
+      border-color: var(--accent);
+    }
+
+    /* ─── Skill bar ──────────────────────────────── */
+    .skill-bar-track { height: 8px; background: var(--bg3); border-radius: 99px; overflow: hidden; }
+    .skill-bar-fill {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-l));
+      border-radius: 99px;
+      box-shadow: 0 0 12px var(--glow);
+      transition: width 1.4s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── Tech pill ──────────────────────────────── */
+    .tech-pill {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 16px 12px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      font-size: .68rem; font-weight: 600; color: var(--text2);
+      transition: all .25s; cursor: default;
+    }
+    .tech-pill:hover {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px var(--glow);
+    }
+    .tech-pill:hover i { color: #fff !important; }
+
+    /* ─── Project card ───────────────────────────── */
+    .project-card { overflow: hidden; border-radius: 20px; }
+    .project-card .cover {
+      height: 220px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .project-card .cover-overlay {
+      position: absolute; inset: 0;
+      background: rgba(8,12,20,.75);
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .project-card:hover .cover-overlay { opacity: 1; }
+    .project-card .tag {
+      font-size: .65rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+      padding: 3px 10px; border-radius: 99px;
+      background: rgba(37,99,235,.15); color: var(--accent-l);
+      border: 1px solid rgba(37,99,235,.3);
+    }
+
+    /* ─── Timeline ───────────────────────────────── */
+    .tl-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 3px solid var(--accent); background: var(--surface);
+      flex-shrink: 0; margin-top: 3px;
+      box-shadow: 0 0 0 4px var(--glow);
+    }
+    .tl-line { flex: 1; min-height: 100%; width: 2px; background: var(--border); margin-left: 6px; }
+
+    /* ─── Soft skill badge ───────────────────────── */
+    .soft-badge {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      font-weight: 600; font-size: .85rem; color: var(--text);
+      transition: all .25s;
+    }
+    .soft-badge:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--glow); }
+
+    /* ─── Reveal animations ──────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── Mobile menu ────────────────────────────── */
+    #mob-menu {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .4s ease, opacity .4s;
+    }
+    #mob-menu.open { max-height: 500px; opacity: 1; }
+
+    /* ─── Back to top ────────────────────────────── */
+    #btt {
+      position: fixed; bottom: 24px; right: 24px; z-index: 998;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px var(--glow);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      cursor: pointer;
+    }
+    #btt.show { opacity: 1; pointer-events: auto; }
+    #btt:hover { transform: translateY(-4px); }
+
+    /* ─── Contact form ───────────────────────────── */
+    .cf-input {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      background: var(--bg3); border: 1.5px solid var(--border);
+      color: var(--text); font-family: inherit; font-size: .9rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .cf-input::placeholder { color: var(--text3); }
+    .cf-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
+
+    /* ─── Dark mode toggle ───────────────────────── */
+    #theme-btn {
+      width: 38px; height: 22px; border-radius: 99px;
+      background: var(--bg3); border: 1.5px solid var(--border);
+      position: relative; cursor: pointer; transition: background .3s;
+      flex-shrink: 0;
+    }
+    #theme-btn::after {
+      content: ''; position: absolute;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent); top: 2px; left: 2px;
+      transition: transform .3s;
+    }
+    [data-theme="light"] #theme-btn::after { transform: translateX(16px); }
+
+    /* ─── Hero code pill ─────────────────────────── */
+    .code-pill {
+      font-family: 'Fira Code', monospace;
+      font-size: .72rem; padding: 8px 14px; border-radius: 8px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text2);
+    }
+    .code-pill .kw { color: #f472b6; }
+    .code-pill .fn { color: var(--accent-l); }
+    .code-pill .str { color: #4ade80; }
+
+    /* ─── Glowing accent line ────────────────────── */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .5;
+    }
+
+    /* ─── Section bg alternation ─────────────────── */
+    .bg-alt { background: var(--bg2); }
+    .bg-dark-card { background: var(--surface); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ CURSOR ══════════════════════ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ══════════════════════ LOADER ══════════════════════ -->
+<div id="loader">
+  <div style="font-family:'Fira Code',monospace;font-size:.75rem;color:#475569;letter-spacing:.1em;margin-bottom:8px;">amiri@portfolio:~$</div>
+  <div class="loader-name">Amiri Soilihi</div>
+  <div style="font-family:'Fira Code',monospace;font-size:.7rem;color:#3b82f6;margin-bottom:20px;">Full Stack Developer</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- ══════════════════════ NAVBAR ══════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="#accueil" class="font-mono text-sm font-semibold" style="color:var(--accent)">
+        <span style="color:var(--text3);">&lt;</span>Amiri<span style="color:var(--text3);">/&gt;</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="hidden lg:flex items-center gap-6">
+        <li><a href="#accueil"      class="nav-link">Accueil</a></li>
+        <li><a href="#apropos"      class="nav-link">À propos</a></li>
+        <li><a href="#competences"  class="nav-link">Compétences</a></li>
+        <li><a href="#experiences"  class="nav-link">Expériences</a></li>
+        <li><a href="#projets"      class="nav-link">Projets</a></li>
+        <li><a href="#softskills"   class="nav-link">Soft Skills</a></li>
+        <li><a href="#contact"      class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <!-- Dark mode toggle -->
+        <div id="theme-btn" title="Changer le thème"></div>
+        <i id="theme-icon" class="fa-solid fa-moon" style="color:var(--text3);font-size:.75rem;"></i>
+
+        <!-- CV button -->
+        <a href="#" download class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg text-white"
+           style="background:var(--accent)">
+          <i class="fa-solid fa-download"></i> CV
+        </a>
+
+        <!-- Burger -->
+        <button id="burger" class="lg:hidden text-lg" style="color:var(--text2)">
+          <i class="fa-solid fa-bars" id="burger-icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mob-menu" style="background:var(--bg2);border-top:1px solid var(--border)">
+    <ul class="flex flex-col px-6 py-4 gap-3 text-sm font-medium" style="color:var(--text2)">
+      <li><a href="#accueil"     class="mob-link block py-1">Accueil</a></li>
+      <li><a href="#apropos"     class="mob-link block py-1">À propos</a></li>
+      <li><a href="#competences" class="mob-link block py-1">Compétences</a></li>
+      <li><a href="#experiences" class="mob-link block py-1">Expériences</a></li>
+      <li><a href="#projets"     class="mob-link block py-1">Projets</a></li>
+      <li><a href="#softskills"  class="mob-link block py-1">Soft Skills</a></li>
+      <li><a href="#contact"     class="mob-link block py-1">Contact</a></li>
+      <li><a href="#" download class="inline-flex items-center gap-2 mt-1 px-4 py-2 text-xs font-semibold rounded-lg text-white" style="background:var(--accent)">
+        <i class="fa-solid fa-download"></i> Télécharger CV
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section id="accueil" class="noise-layer hero-bg relative min-h-screen flex items-center overflow-hidden">
+  <div class="hero-grid absolute inset-0 pointer-events-none"></div>
+
+  <!-- Floating blobs -->
+  <div class="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+       style="background:radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%); filter:blur(40px)"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+       style="background:radial-gradient(circle, rgba(96,165,250,.07) 0%, transparent 70%); filter:blur(50px)"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8 pt-24 pb-16 grid lg:grid-cols-2 gap-16 items-center w-full">
+
+    <!-- LEFT -->
+    <div style="animation:fadeUp .8s ease both">
+      <!-- Status badge -->
+      <div class="tag-badge mb-6 w-fit">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block"></span>
+        Disponible · Sénégal 🇸🇳
+      </div>
+
+      <!-- Name -->
+      <h1 class="font-sans font-extrabold text-5xl sm:text-6xl xl:text-7xl leading-none mb-2" style="color:var(--text)">
+        Amiri
+      </h1>
+      <h1 class="font-sans font-extrabold text-5xl sm:text-6xl xl:text-7xl leading-none mb-6"
+          style="color:var(--accent)">Soilihi</h1>
+
+      <!-- Typed title -->
+      <div class="font-mono text-lg font-medium mb-6" style="color:var(--accent-l)">
+        <span id="typed-text"></span><span class="type-cursor"></span>
+      </div>
+
+      <!-- Slogan -->
+    <p class="text-base leading-relaxed mb-8 max-w-xl" style="color:var(--text2)">
+  Développeur Full Stack passionné par le devellopement des applications. Je développe des applications web robustes,
+  performantes et évolutives, tout en respectant les bonnes pratiques et en offrant une excellente
+  expérience utilisateur.
+</p>
+
+      <!-- Code snippet decorative -->
+      <div class="code-pill mb-8 w-fit">
+        <span class="kw">const</span> dev = {
+        <span class="fn"> stack</span>:
+        <span class="str">''Java (Spring Boot) + Angular'</span> }
+      </div>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-3 mb-10">
+        <a href="#projets" class="px-6 py-3 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5"
+           style="background:var(--accent);box-shadow:0 8px 24px var(--glow)">
+          Voir mes projets <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        </a>
+        <a href="#contact" class="px-6 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
+           style="border:1.5px solid var(--border);color:var(--text2);background:var(--surface)">
+          Me contacter
+        </a>
+        <a href="#" download class="px-6 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
+           style="border:1.5px solid var(--accent);color:var(--accent);background:transparent">
+          <i class="fa-solid fa-download mr-1.5"></i>CV
+        </a>
+      </div>
+
+      <!-- Social -->
+      <div class="flex items-center gap-3">
+        <a href="mailto:amiri@email.com"      class="social-ico"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://wa.me/221XXXXXXXXX" target="_blank" class="social-ico"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://linkedin.com"        target="_blank" class="social-ico"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com"          target="_blank" class="social-ico"><i class="fa-brands fa-github"></i></a>
+        <a href="https://facebook.com"        target="_blank" class="social-ico"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://tiktok.com"          target="_blank" class="social-ico"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+
+    <!-- RIGHT : Avatar -->
+    <div class="flex justify-center lg:justify-end" style="animation:fadeUp .9s .2s ease both; opacity:0; animation-fill-mode:both; left:-8623px;">
+      <div class="relative">
+        <!-- Orbit ring -->
+        <div class="absolute inset-0 rounded-full pointer-events-none"
+             style="box-shadow:0 0 0 2px rgba(37,99,235,.25), 0 0 80px rgba(37,99,235,.15)"></div>
+
+        <div class="w-64 h-64 sm:w-80 sm:h-80 xl:w-[360px] xl:h-[360px] rounded-full avatar-frame overflow-hidden"
+             style="background:linear-gradient(135deg,var(--bg3),var(--surface));display:flex;align-items:center;justify-content:center">
+          <!-- Replace with: <img src="amiri.jpg" alt="Amiri Soilihi" class="w-full h-full object-cover"> -->
+          <img src="images/amir.jpg" alt="">
+        </div>
+
+        <!-- Stats bubbles -->
+        <div class="absolute -left-8 top-1/3 flex flex-col items-center gap-1 px-4 py-3 rounded-2xl"
+             style="background:var(--surface);border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.2)">
+          <span class="font-extrabold text-xl" style="color:var(--accent)">2+</span>
+          <span class="text-xs" style="color:var(--text3)">Ans d'exp.</span>
+        </div>
+        <div class="absolute -right-8 bottom-1/3 flex flex-col items-center gap-1 px-4 py-3 rounded-2xl"
+             style="background:var(--surface);border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.2)">
+          <span class="font-extrabold text-xl" style="color:var(--accent)">10+</span>
+          <span class="text-xs" style="color:var(--text3)">Techs</span>
+        </div>
+        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full"
+             style="background:var(--surface);border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.2);white-space:nowrap">
+          <i class="fa-solid fa-map-pin text-xs" style="color:var(--accent)"></i>
+          <span class="text-xs font-semibold" style="color:var(--text2)">Dakar, Sénégal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce"
+       style="color:var(--text3)">
+    <span class="font-mono text-xs">scroll</span>
+    <i class="fa-solid fa-chevron-down text-xs"></i>
+  </div>
+</section>
+
+<!-- ══════════════════════ À PROPOS ══════════════════════ -->
+<section id="apropos" class="py-28 bg-alt">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 01. À propos</div>
+      <h2 class="section-title">Qui suis-je ?</h2>
+      <div class="divider mx-auto mt-3"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-12 items-start">
+
+      <!-- Bio (3 cols) -->
+      <div class="lg:col-span-3 reveal">
+        <p class="leading-relaxed mb-5 text-sm" style="color:var(--text2)">
+          Je suis <strong style="color:var(--text)">Amiri Soilihi</strong>, développeur Full Stack Junior passionné,
+          basé au <strong style="color:var(--text)">Sénégal 🇸🇳</strong>. Mon parcours dans l'informatique
+          m'a permis de développer des compétences solides en développement web, aussi bien côté frontend que backend.
+        </p>
+  
+
+        <!-- Objective box -->
+        <div class="p-5 rounded-2xl reveal" style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent)">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fa-solid fa-bullseye" style="color:var(--accent)"></i>
+            <span class="font-bold text-sm" style="color:var(--text)">Objectif professionnel</span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color:var(--text2)">
+          Mon objectif est de devenir un ingénieur logiciel expert en Java , en développant des applications robustes, performantes et évolutives,
+           tout en respectant les bonnes pratiques du génie logiciel et les besoins des utilisateurs.
+          </p>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="grid grid-cols-3 gap-4 mt-6">
+          <div class="reveal p-4 rounded-xl text-center" style="background:var(--surface);border:1px solid var(--border)">
+            <div class="font-extrabold text-2xl" style="color:var(--accent)">2</div>
+            <div class="text-xs mt-1" style="color:var(--text3)">Projets réalisés</div>
+          </div>
+          <div class="reveal p-4 rounded-xl text-center" style="background:var(--surface);border:1px solid var(--border)">
+            <div class="font-extrabold text-2xl" style="color:var(--accent)">2</div>
+            <div class="text-xs mt-1" style="color:var(--text3)">Stages effectués</div>
+          </div>
+          <div class="reveal p-4 rounded-xl text-center" style="background:var(--surface);border:1px solid var(--border)">
+            <div class="font-extrabold text-2xl" style="color:var(--accent)">10+</div>
+            <div class="text-xs mt-1" style="color:var(--text3)">Technologies</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline (2 cols) -->
+      <div class="lg:col-span-2 reveal">
+        <div class="font-bold text-sm mb-6 flex items-center gap-2" style="color:var(--text)">
+          <i class="fa-solid fa-graduation-cap" style="color:var(--accent)"></i>
+          Parcours académique
+        </div>
+
+        <div class="relative pl-6" style="border-left:2px solid var(--border)">
+
+          <div class="mb-7 relative">
+            <div class="tl-dot absolute -left-[29px]"></div>
+            <span class="font-mono text-xs" style="color:var(--accent)">2019</span>
+            <h4 class="font-bold text-sm mt-0.5" style="color:var(--text)">BEPC</h4>
+            <p class="text-xs mt-0.5" style="color:var(--text3)">Brevet d'Études du Premier Cycle</p>
+          </div>
+
+          <div class="mb-7 relative">
+            <div class="tl-dot absolute -left-[29px]"></div>
+            <span class="font-mono text-xs" style="color:var(--accent)">2022</span>
+            <h4 class="font-bold text-sm mt-0.5" style="color:var(--text)">BAC</h4>
+            <p class="text-xs mt-0.5" style="color:var(--text3)">Baccalauréat Scientifique</p>
+          </div>
+
+          <div class="mb-7 relative">
+            <div class="tl-dot absolute -left-[29px]"></div>
+            <span class="font-mono text-xs" style="color:var(--accent)">2024</span>
+            <h4 class="font-bold text-sm mt-0.5" style="color:var(--text)">DUT — Génie Informatique</h4>
+            <p class="text-xs mt-0.5" style="color:var(--text3)">Diplôme Universitaire de Technologie</p>
+          </div>
+
+          <div class="relative">
+            <div class="tl-dot absolute -left-[29px]" style="background:var(--accent)"></div>
+            <span class="font-mono text-xs" style="color:var(--accent)">2025</span>
+            <h4 class="font-bold text-sm mt-0.5" style="color:var(--text)">Licence — Génie Logiciel</h4>
+            <p class="text-xs mt-0.5" style="color:var(--text3)">Spécialisation développement logiciel</p>
+            <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-semibold"
+                  style="background:rgba(37,99,235,.15);color:var(--accent-l)">En cours</span>
+          </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="mt-8 p-5 rounded-2xl" style="background:var(--surface);border:1px solid var(--border)">
+          <div class="font-bold text-sm mb-4 flex items-center gap-2" style="color:var(--text)">
+            <i class="fa-solid fa-heart" style="color:var(--accent)"></i>
+            Centres d'intérêt
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="interest-pill"><i class="fa-solid fa-code mr-1"></i>Développement</span>
+            <span class="interest-pill"><i class="fa-solid fa-futbol mr-1"></i>Sport</span>
+            <span class="interest-pill"><i class="fa-solid fa-book mr-1"></i>Lecture</span>
+            <span class="interest-pill"><i class="fa-solid fa-mobile mr-1"></i>Mobile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ COMPÉTENCES ══════════════════════ -->
+<section id="competences" class="py-28" style="background:var(--bg)">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 02. Compétences</div>
+      <h2 class="section-title">Arsenal technique</h2>
+      <div class="divider mx-auto mt-3"></div>
+    </div>
+
+    <!-- Skill bars -->
+    <div class="grid md:grid-cols-2 gap-5 mb-16 max-w-4xl mx-auto" id="skill-bars-container">
+      <!-- JS built -->
+    </div>
+
+    <!-- Tech categories -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+      <!-- Design -->
+      <div class="reveal card p-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-sm"
+             style="background:rgba(37,99,235,.12);color:var(--accent)">
+          <i class="fa-solid fa-pen-ruler"></i>
+        </div>
+        <h3 class="font-bold text-sm uppercase tracking-wider mb-3" style="color:var(--text)">Design</h3>
+        <ul class="space-y-1.5 text-xs" style="color:var(--text2)">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Figma (niveau moyen)</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Photoshop (niveau moyen)</li>
+        </ul>
+      </div>
+
+      <!-- Frontend -->
+      <div class="reveal card p-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-sm"
+             style="background:rgba(37,99,235,.12);color:var(--accent)">
+          <i class="fa-solid fa-display"></i>
+        </div>
+        <h3 class="font-bold text-sm uppercase tracking-wider mb-3" style="color:var(--text)">Frontend</h3>
+        <ul class="space-y-1.5 text-xs" style="color:var(--text2)">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>HTML / CSS / JS</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Tailwind CSS</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Angular</li>
+        </ul>
+      </div>
+
+      <!-- Backend -->
+      <div class="reveal card p-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-sm"
+             style="background:rgba(37,99,235,.12);color:var(--accent)">
+          <i class="fa-solid fa-server"></i>
+        </div>
+        <h3 class="font-bold text-sm uppercase tracking-wider mb-3" style="color:var(--text)">Backend</h3>
+        <ul class="space-y-1.5 text-xs" style="color:var(--text2)">
+         
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Java / Spring Boot</li>
+           <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>PHP (POO) / Laravel</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>REST API / Swagger</li>
+        </ul>
+      </div>
+
+      <!--Base de données-->
+      <div class="reveal card p-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-sm"
+             style="background:rgba(37,99,235,.12);color:var(--accent)">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <h3 class="font-bold text-sm uppercase tracking-wider mb-3" style="color:var(--text)">Base de données</h3>
+        <ul class="space-y-1.5 text-xs" style="color:var(--text2)">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>MySQL</li>
+           <li class="flex items-center gap-2">
+      <i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Conception & modélisation UML / MERISE
+    </li>
+        </ul>
+      </div>
+
+
+      <!-- DevOps & Outils -->
+      <div class="reveal card p-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 text-sm"
+             style="background:rgba(37,99,235,.12);color:var(--accent)">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <h3 class="font-bold text-sm uppercase tracking-wider mb-3" style="color:var(--text)">DevOps & Outils</h3>
+        <ul class="space-y-1.5 text-xs" style="color:var(--text2)">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Git / GitHub</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Docker</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs" style="color:var(--accent)"></i>Hebergement claud</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tech logos -->
+    <div class="reveal">
+      <div class="glow-line mb-8"></div>
+      <p class="text-center text-xs font-semibold uppercase tracking-wider mb-8" style="color:var(--text3)">Technologies maîtrisées</p>
+      <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-11 gap-3" id="tech-icons">
+        <!-- JS built -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ EXPÉRIENCES ══════════════════════ -->
+<section id="experiences" class="py-28 bg-alt">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 03. Expériences</div>
+      <h2 class="section-title">Parcours professionnel</h2>
+      <div class="divider mx-auto mt-3"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-6">
+
+      <!-- Stage 1 -->
+      <div class="reveal card p-7">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(37,99,235,.15);color:var(--accent-l)">Stage académique</span>
+              <span class="text-xs" style="color:var(--text3)">2024</span>
+            </div>
+            <h3 class="font-bold text-lg" style="color:var(--text)">Magasin Kamal</h3>
+            <p class="text-sm" style="color:var(--accent-l)">Développeur / Technicien informatique</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(37,99,235,.1)">
+            <i class="fa-solid fa-store text-xl" style="color:var(--accent)"></i>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm" style="color:var(--text2)">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-arrow-right text-xs mt-1 flex-shrink-0" style="color:var(--accent)"></i>
+            Participation à la gestion d'un système informatique en environnement réel
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-arrow-right text-xs mt-1 flex-shrink-0" style="color:var(--accent)"></i>
+            Découverte du fonctionnement en entreprise et des responsabilités professionnelles
+          </li>
+        </ul>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="reveal card p-7">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    style="background:rgba(37,99,235,.15);color:var(--accent-l)">Stage académique</span>
+              <span class="text-xs" style="color:var(--text3)">2025</span>
+            </div>
+            <h3 class="font-bold text-lg" style="color:var(--text)">IPG-ISTI</h3>
+            <p class="text-sm" style="color:var(--accent-l)">Technicien réseaux / Développeur</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(37,99,235,.1)">
+            <i class="fa-solid fa-building text-xl" style="color:var(--accent)"></i>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm" style="color:var(--text2)">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-arrow-right text-xs mt-1 flex-shrink-0" style="color:var(--accent)"></i>
+            Participation à l'amélioration de l'architecture réseau de l'établissement
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-arrow-right text-xs mt-1 flex-shrink-0" style="color:var(--accent)"></i>
+            Travail en équipe sur des projets informatiques en environnement académique
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ PROJETS ══════════════════════ -->
+<section id="projets" class="py-28" style="background:var(--bg)">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 04. Projets</div>
+      <h2 class="section-title">Réalisations récentes</h2>
+      <div class="divider mx-auto mt-3"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      
+      <div class="reveal project-card card">
+  <!-- Cover -->
+  <div class="cover" style="background:linear-gradient(135deg,#0f2b5b,#1e4ea8,#0a74da)">
+    <i class="fa-solid fa-laptop-code text-white/10 absolute" style="font-size:8rem;right:20px;bottom:10px;"></i>
+    <div class="relative z-10 text-center px-6">
+      <i class="fa-solid fa-code text-white text-4xl mb-3 opacity-80"></i>
+      <p class="text-white font-bold text-lg">Portfolio Personnel</p>
+      <p class="text-white/60 text-xs mt-1">Mon portfolio en ligne</p>
+    </div>
+    <div class="cover-overlay">
+      <a href="#" class="icon-btn"><i class="fa-brands fa-github"></i></a>
+      <a href="#" class="icon-btn accent"><i class="fa-solid fa-external-link text-xs"></i></a>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="p-6">
+    <div class="flex items-start justify-between mb-3">
+      <h3 class="font-bold text-base" style="color:var(--text)">Portfolio Personnel</h3>
+      <span class="project-tag">HTML · Tailwind CSS · JS</span>
+    </div>
+    <p class="text-sm leading-relaxed mb-4" style="color:var(--text2)">
+      Mon portfolio personnel présente mes compétences, projets et expériences. 
+      Conçu avec HTML, Tailwind CSS et JavaScript pour un site moderne, responsive et interactif.
+    </p>
+
+    <!-- Problem / Solution / Result -->
+    <div class="space-y-2 mb-4">
+      <div class="flex gap-2 text-xs" style="color:var(--text2)">
+        <span class="font-bold flex-shrink-0" style="color:var(--accent)">Problème :</span>
+        Montrer l’ensemble de mes compétences et projets de manière professionnelle
+      </div>
+      <div class="flex gap-2 text-xs" style="color:var(--text2)">
+        <span class="font-bold flex-shrink-0" style="color:#4ade80">Solution :</span>
+        Création d’un portfolio moderne, responsive et interactif avec animations
+      </div>
+      <div class="flex gap-2 text-xs" style="color:var(--text2)">
+        <span class="font-bold flex-shrink-0" style="color:#f59e0b">Résultat :</span>
+        Portfolio prêt, mettant en avant mes projets et compétences
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-1.5">
+      <span class="tech-tag">HTML</span><span class="tech-tag">Tailwind CSS</span>
+      <span class="tech-tag">JavaScript</span><span class="tech-tag">Responsive</span>
+      <span class="tech-tag">Portfolio</span>
+    </div>
+  </div>
+</div>
+      <!-- Projet 1 -->
+      <div class="reveal project-card card">
+        <!-- Cover -->
+        <div class="cover" style="background:linear-gradient(135deg,#0f2b5b,#1e4ea8,#0a74da)">
+          <i class="fa-solid fa-shop text-white/10 absolute" style="font-size:8rem;right:20px;bottom:10px;"></i>
+          <div class="relative z-10 text-center px-6">
+            <i class="fa-solid fa-shopping-cart text-white text-4xl mb-3 opacity-80"></i>
+            <p class="text-white font-bold text-lg">SINE SALOUM ÉLECTRONIQUE</p>
+            <p class="text-white/60 text-xs mt-1">Plateforme E-commerce</p>
+          </div>
+          <div class="cover-overlay">
+            <a href="#" class="icon-btn"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon-btn accent"><i class="fa-solid fa-external-link text-xs"></i></a>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-bold text-base" style="color:var(--text)">Plateforme E-commerce</h3>
+            <span class="project-tag">Laravel · MVC</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text2)">
+            Plateforme e-commerce complète pour la vente de produits électroniques. 
+            Gestion des produits, utilisateurs et commandes avec un système d'administration dédié.
+          </p>
+
+          <!-- Problem / Solution / Result -->
+          <div class="space-y-2 mb-4">
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:var(--accent)">Problème :</span>
+              Digitaliser la vente de produits électroniques
+            </div>
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:#4ade80">Solution :</span>
+              Création d'une plateforme e-commerce complète avec Laravel
+            </div>
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:#f59e0b">Résultat :</span>
+              Application fonctionnelle avec gestion complète des opérations
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tech-tag">Laravel</span><span class="tech-tag">PHP</span>
+            <span class="tech-tag">Tailwind CSS</span><span class="tech-tag">MySQL</span>
+            <span class="tech-tag">MVC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projet 2 -->
+      <div class="reveal project-card card">
+        <div class="cover" style="background:linear-gradient(135deg,#052e16,#14532d,#166534)">
+          <i class="fa-solid fa-chart-line text-white/10 absolute" style="font-size:8rem;right:20px;bottom:10px;"></i>
+          <div class="relative z-10 text-center px-6">
+            <i class="fa-solid fa-chart-area text-white text-4xl mb-3 opacity-80"></i>
+            <p class="text-white font-bold text-lg">SUIVI DES PRIX ALIMENTAIRES</p>
+            <p class="text-white/60 text-xs mt-1">Data Visualisation</p>
+          </div>
+          <div class="cover-overlay">
+            <a href="#" class="icon-btn"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon-btn accent"><i class="fa-solid fa-external-link text-xs"></i></a>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-bold text-base" style="color:var(--text)">Suivi des Prix Alimentaires</h3>
+            <span class="project-tag" style="background:rgba(20,83,45,.2);color:#4ade80;border-color:rgba(74,222,128,.25)">Laravel · Leaflet</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text2)">
+            Application web de visualisation et d'analyse des prix alimentaires par marché.
+            Intégration de graphiques dynamiques et d'une carte interactive avec Leaflet.js.
+          </p>
+
+          <div class="space-y-2 mb-4">
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:var(--accent)">Problème :</span>
+              Difficulté à suivre et comparer l'évolution des prix sur les marchés
+            </div>
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:#4ade80">Solution :</span>
+              Application de suivi, visualisation et d'analyse des prix
+            </div>
+            <div class="flex gap-2 text-xs" style="color:var(--text2)">
+              <span class="font-bold flex-shrink-0" style="color:#f59e0b">Résultat :</span>
+              Meilleure visibilité des prix grâce aux graphiques et à la carte interactive
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tech-tag">Laravel</span><span class="tech-tag">Leaflet.js</span>
+            <span class="tech-tag">Chart.js</span><span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal text-center mt-10">
+      <a href="https://github.com" target="_blank"
+         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
+         style="border:1.5px solid var(--border);color:var(--text2);background:var(--surface)">
+        <i class="fa-brands fa-github"></i> Voir plus sur GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SOFT SKILLS ══════════════════════ -->
+<section id="softskills" class="py-28 bg-alt">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 05. Soft Skills</div>
+      <h2 class="section-title">Qualités humaines</h2>
+      <div class="divider mx-auto mt-3"></div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+
+      <div class="reveal soft-badge flex-col text-center py-8 gap-3">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl"
+             style="background:rgba(37,99,235,.1);color:var(--accent)">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <span class="font-bold text-sm" style="color:var(--text)">Esprit d'équipe</span>
+        <p class="text-xs" style="color:var(--text3)">Collaboration et communication efficace</p>
+      </div>
+
+      <div class="reveal soft-badge flex-col text-center py-8 gap-3">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl"
+             style="background:rgba(37,99,235,.1);color:var(--accent)">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </div>
+        <span class="font-bold text-sm" style="color:var(--text)">Adaptabilité</span>
+        <p class="text-xs" style="color:var(--text3)">Capacité à évoluer dans tout contexte</p>
+      </div>
+
+      <div class="reveal soft-badge flex-col text-center py-8 gap-3">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl"
+             style="background:rgba(37,99,235,.1);color:var(--accent)">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <span class="font-bold text-sm" style="color:var(--text)">Motivation</span>
+        <p class="text-xs" style="color:var(--text3)">Passion et investissement total</p>
+      </div>
+
+      <div class="reveal soft-badge flex-col text-center py-8 gap-3">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl"
+             style="background:rgba(37,99,235,.1);color:var(--accent)">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <span class="font-bold text-sm" style="color:var(--text)">Responsabilité</span>
+        <p class="text-xs" style="color:var(--text3)">Fiabilité et sens du devoir</p>
+      </div>
+    </div>
+
+    <!-- Loisirs -->
+    <div class="reveal mt-16 max-w-3xl mx-auto">
+      <div class="glow-line mb-10"></div>
+      <p class="text-center text-xs font-semibold uppercase tracking-wider mb-8" style="color:var(--text3)">
+        Centres d'intérêt & Loisirs
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl text-center transition-all hover:-translate-y-1 cursor-default"
+             style="background:var(--surface);border:1px solid var(--border)">
+          <i class="fa-solid fa-laptop-code text-2xl mb-2 block" style="color:var(--accent)"></i>
+          <span class="text-xs font-semibold" style="color:var(--text2)">Développement web</span>
+        </div>
+        <div class="p-4 rounded-2xl text-center transition-all hover:-translate-y-1 cursor-default"
+             style="background:var(--surface);border:1px solid var(--border)">
+          <i class="fa-solid fa-mobile-screen text-2xl mb-2 block" style="color:var(--accent)"></i>
+          <span class="text-xs font-semibold" style="color:var(--text2)">Développement mobile</span>
+        </div>
+        <div class="p-4 rounded-2xl text-center transition-all hover:-translate-y-1 cursor-default"
+             style="background:var(--surface);border:1px solid var(--border)">
+          <i class="fa-solid fa-futbol text-2xl mb-2 block" style="color:var(--accent)"></i>
+          <span class="text-xs font-semibold" style="color:var(--text2)">Sport</span>
+        </div>
+        <div class="p-4 rounded-2xl text-center transition-all hover:-translate-y-1 cursor-default"
+             style="background:var(--surface);border:1px solid var(--border)">
+          <i class="fa-solid fa-book-open text-2xl mb-2 block" style="color:var(--accent)"></i>
+          <span class="text-xs font-semibold" style="color:var(--text2)">Lecture</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<section id="contact" class="py-28 noise-layer relative overflow-hidden" style="background:var(--bg2)">
+
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
+       style="background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 70%);filter:blur(50px)"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+       style="background:radial-gradient(circle,rgba(96,165,250,.05) 0%,transparent 70%);filter:blur(60px)"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="reveal text-center mb-16">
+      <div class="section-label mb-2">// 06. Contact</div>
+      <h2 class="section-title">Travaillons ensemble</h2>
+      <div class="divider mx-auto mt-3"></div>
+      <p class="mt-4 text-sm max-w-md mx-auto" style="color:var(--text2)">
+        Vous avez un projet ? N'hésitez pas à me contacter, je serai ravi d'en discuter.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+
+      <!-- Left: infos -->
+      <div class="reveal space-y-5">
+        <a href="mailto:amiri@email.com" class="contact-info-card group">
+          <div class="icon-wrap" style="background:rgba(37,99,235,.12)"><i class="fa-solid fa-envelope" style="color:var(--accent)"></i></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color:var(--text3)">Email</p>
+            <p class="text-sm font-semibold group-hover:text-blue-400 transition-colors" style="color:var(--text)">amiri@email.com</p>
+          </div>
+          <i class="fa-solid fa-arrow-right ml-auto text-xs" style="color:var(--text3)"></i>
+        </a>
+
+        <a href="https://wa.me/221XXXXXXXXX" target="_blank" class="contact-info-card group">
+          <div class="icon-wrap" style="background:rgba(74,222,128,.1)"><i class="fa-brands fa-whatsapp" style="color:#4ade80"></i></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color:var(--text3)">WhatsApp</p>
+            <p class="text-sm font-semibold group-hover:text-green-400 transition-colors" style="color:var(--text)">+221 XX XXX XX XX</p>
+          </div>
+          <i class="fa-solid fa-arrow-right ml-auto text-xs" style="color:var(--text3)"></i>
+        </a>
+
+        <div class="contact-info-card">
+          <div class="icon-wrap" style="background:rgba(37,99,235,.12)"><i class="fa-solid fa-map-pin" style="color:var(--accent)"></i></div>
+          <div>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color:var(--text3)">Localisation</p>
+            <p class="text-sm font-semibold" style="color:var(--text)">Dakar, Sénégal 🇸🇳</p>
+          </div>
+        </div>
+
+        <!-- Socials -->
+        <div class="pt-4">
+          <p class="text-xs uppercase tracking-wider mb-4" style="color:var(--text3)">Réseaux sociaux</p>
+          <div class="flex gap-3">
+            <a href="mailto:amiri@email.com"      class="soc-btn" title="Email">       <i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/221XXXXXXXXX"  target="_blank" class="soc-btn green" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://linkedin.com"         target="_blank" class="soc-btn li"    title="LinkedIn"> <i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com"           target="_blank" class="soc-btn gh"    title="GitHub">   <i class="fa-brands fa-github"></i></a>
+            <a href="https://facebook.com"         target="_blank" class="soc-btn fb"    title="Facebook"> <i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://tiktok.com"           target="_blank" class="soc-btn tt"    title="TikTok">   <i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- CV Download card -->
+        <div class="reveal mt-2">
+          <a href="#" download class="flex items-center gap-4 p-5 rounded-2xl transition-all hover:-translate-y-1"
+             style="background:var(--accent);box-shadow:0 12px 32px var(--glow)">
+            <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+              <i class="fa-solid fa-file-pdf text-white"></i>
+            </div>
+            <div>
+              <p class="text-white font-bold text-sm">Télécharger mon CV</p>
+              <p class="text-white/70 text-xs">Format PDF • Mis à jour 2025</p>
+            </div>
+            <i class="fa-solid fa-download text-white ml-auto"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <form id="contact-form" class="reveal space-y-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text3)">Nom</label>
+            <input type="text" class="cf-input" placeholder="Votre nom" required/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text3)">Email</label>
+            <input type="email" class="cf-input" placeholder="votre@email.com" required/>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text3)">Sujet</label>
+          <input type="text" class="cf-input" placeholder="Objet de votre message" required/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text3)">Message</label>
+          <textarea rows="5" class="cf-input resize-none" placeholder="Décrivez votre projet ou votre demande…" required></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                style="background:var(--accent);box-shadow:0 8px 24px var(--glow)">
+          <i class="fa-solid fa-paper-plane"></i> Envoyer le message
+        </button>
+        <div id="form-ok" class="hidden text-center text-sm font-semibold py-2"
+             style="color:#4ade80">
+          <i class="fa-solid fa-circle-check mr-1.5"></i>Message envoyé avec succès !
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer class="py-8 border-t" style="background:var(--bg);border-color:var(--border)">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <span class="font-mono text-sm" style="color:var(--accent)">&lt;Amiri Soilihi/&gt;</span>
+    <span class="text-xs" style="color:var(--text3)">© <span id="yr"></span> • Développé avec <i class="fa-solid fa-heart mx-1" style="color:var(--accent)"></i> au Sénégal 🇸🇳</span>
+    <div class="flex gap-3">
+      <a href="https://github.com" target="_blank" class="text-sm hover:text-blue-400 transition-colors" style="color:var(--text3)"><i class="fa-brands fa-github"></i></a>
+      <a href="https://linkedin.com" target="_blank" class="text-sm hover:text-blue-400 transition-colors" style="color:var(--text3)"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="btt" aria-label="Retour en haut"><i class="fa-solid fa-chevron-up text-sm"></i></button>
+
+<!-- ══════════════════════ INLINE STYLES (additional components) ══════════════════════ -->
+<style>
+  /* Social icons hero */
+  .social-ico {
+    width:36px; height:36px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.8rem; transition:all .22s;
+    background:var(--surface); border:1px solid var(--border); color:var(--text2);
+  }
+  .social-ico:hover { background:var(--accent); color:#fff; border-color:var(--accent); transform:translateY(-3px); }
+
+  /* Interest pills */
+  .interest-pill {
+    font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:99px;
+    background:rgba(37,99,235,.1); color:var(--accent-l);
+    border:1px solid rgba(37,99,235,.25);
+  }
+
+  /* Skill bar labels */
+  .skill-item { display:flex; flex-direction:column; gap:6px; }
+  .skill-label { display:flex; justify-content:space-between; font-size:.78rem; font-weight:600; }
+  .skill-name { color:var(--text); }
+  .skill-val  { color:var(--accent); font-family:'Fira Code',monospace; }
+
+  /* Project tag */
+  .project-tag {
+    font-size:.62rem; font-weight:700; padding:3px 9px; border-radius:99px;
+    background:rgba(37,99,235,.12); color:var(--accent-l); border:1px solid rgba(37,99,235,.25);
+    white-space:nowrap;
+  }
+  .tech-tag {
+    font-size:.65rem; font-weight:600; padding:3px 9px; border-radius:99px;
+    background:var(--bg3); color:var(--text2); border:1px solid var(--border);
+  }
+
+  /* Icon button on project cover */
+  .icon-btn {
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,.12); color:#fff;
+    border:1px solid rgba(255,255,255,.2);
+    transition:all .2s; font-size:.9rem;
+  }
+  .icon-btn:hover { background:rgba(255,255,255,.3); transform:scale(1.1); }
+  .icon-btn.accent { background:var(--accent); border-color:var(--accent); }
+
+  /* Contact info card */
+  .contact-info-card {
+    display:flex; align-items:center; gap:14px; padding:16px;
+    border-radius:16px; background:var(--surface); border:1px solid var(--border);
+    transition:all .25s; text-decoration:none;
+  }
+  .contact-info-card:hover { border-color:var(--accent); box-shadow:0 8px 24px var(--glow); }
+  .icon-wrap {
+    width:44px; height:44px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    font-size:1rem;
+  }
+
+  /* Social buttons in contact */
+  .soc-btn {
+    width:44px; height:44px; border-radius:12px; font-size:.9rem;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg3); color:var(--text2);
+    border:1px solid var(--border); transition:all .22s;
+  }
+  .soc-btn:hover, .soc-btn.green:hover { background:#25D366; color:#fff; border-color:#25D366; }
+  .soc-btn.li:hover  { background:#0077B5; color:#fff; border-color:#0077B5; }
+  .soc-btn.gh:hover  { background:#333; color:#fff; border-color:#333; }
+  .soc-btn.fb:hover  { background:#1877F2; color:#fff; border-color:#1877F2; }
+  .soc-btn.tt:hover  { background:#000; color:#fff; border-color:#000; }
+  .soc-btn:hover:not(.green):not(.li):not(.gh):not(.fb):not(.tt) {
+    background:var(--accent); color:#fff; border-color:var(--accent);
+  }
+
+  /* Fade up keyframe */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:none; }
+  }
+</style>
+
+<!-- ══════════════════════ JAVASCRIPT ══════════════════════ -->
+<script>
+/* ─── Loader ──────────────────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hide'), 1800);
+});
+
+/* ─── Footer year ──────────────────────────── */
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ─── Custom cursor ────────────────────────── */
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left  = mx+'px'; dot.style.top = my+'px';
+});
+(function animCursor(){
+  rx += (mx-rx)*.14; ry += (my-ry)*.14;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,input,textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { dot.style.width='14px'; dot.style.height='14px'; ring.style.opacity='0'; });
+  el.addEventListener('mouseleave', () => { dot.style.width='8px';  dot.style.height='8px';  ring.style.opacity='.5'; });
+});
+
+/* ─── Dark / Light mode ────────────────────── */
+const html = document.documentElement;
+const themeBtn  = document.getElementById('theme-btn');
+const themeIcon = document.getElementById('theme-icon');
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  themeIcon.className = t==='dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  themeIcon.style.color = t==='dark' ? 'var(--text3)' : '#f59e0b';
+  localStorage.setItem('theme', t);
+}
+themeBtn.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+});
+applyTheme(localStorage.getItem('theme') || 'dark');
+
+/* ─── Navbar ───────────────────────────────── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ─── Burger ───────────────────────────────── */
+const burger = document.getElementById('burger');
+const mobMenu = document.getElementById('mob-menu');
+const burgerI = document.getElementById('burger-icon');
+burger.addEventListener('click', () => {
+  const open = mobMenu.classList.toggle('open');
+  burgerI.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+});
+document.querySelectorAll('.mob-link').forEach(l => {
+  l.addEventListener('click', () => {
+    mobMenu.classList.remove('open');
+    burgerI.className = 'fa-solid fa-bars';
+  });
+});
+
+/* ─── Back to top ───────────────────────────── */
+const btt = document.getElementById('btt');
+window.addEventListener('scroll', () => btt.classList.toggle('show', window.scrollY > 400));
+btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+/* ─── Reveal on scroll ─────────────────────── */
+const revObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ─── Typed text ───────────────────────────── */
+const titles = [
+  'Développeur Full Stack Junior',
+  'Spécialiste Java (Spring Boot) & Angular',
+  'Développeur Web Passionné'
+];
+let ti=0, ci=0, deleting=false;
+function typeWriter() {
+  const el = document.getElementById('typed-text');
+  const cur = titles[ti];
+  el.textContent = deleting ? cur.slice(0,ci--) : cur.slice(0,ci++);
+  if (!deleting && ci > cur.length)       { deleting=true;  setTimeout(typeWriter, 1400); return; }
+  if (deleting  && ci < 0)               { deleting=false; ti=(ti+1)%titles.length; ci=0; setTimeout(typeWriter,400); return; }
+  setTimeout(typeWriter, deleting ? 45 : 75);
+}
+setTimeout(typeWriter, 2000);
+
+/* ─── Skill bars ────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const skills = [
+    { name:'HTML / CSS', val:85 },
+    { name:'Tailwind CSS', val:82 },
+    { name:'Laravel', val:80 },
+    { name:'Angular', val:70 },
+    { name:'JavaScript', val:65 },
+    { name:'Java', val:60 },
+    { name:'PHP (POO)', val:78 },
+    { name:'Spring Boot', val:58 },
+    {name:'React Native', val:50 },
+     {name:'REST API', val:80 },
+    { name:'MySQL', val:75 },
+    { name:'Docker', val:55 },
+    { name:'Git/GitHub', val:82 },
+  ];
+
+  const sbContainer = document.getElementById('skill-bars-container');
+  skills.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'skill-item';
+    div.innerHTML = `
+      <div class="skill-label">
+        <span class="skill-name">${s.name}</span>
+        <span class="skill-val">${s.val}%</span>
+      </div>
+      <div class="skill-bar-track">
+        <div class="skill-bar-fill" data-w="${s.val}"></div>
+      </div>`;
+    sbContainer.appendChild(div);
+  });
+
+  let barsAnimated = false;
+  const skillSec = document.getElementById('competences');
+  new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !barsAnimated) {
+      barsAnimated = true;
+      document.querySelectorAll('.skill-bar-fill').forEach((b,i) => {
+        setTimeout(() => { b.style.width = b.getAttribute('data-w') + '%'; }, i * 90);
+      });
+    }
+  }, { threshold: 0.2 }).observe(skillSec);
+});
+
+/* ─── Tech icons ────────────────────────────── */
+const techs = [
+  { name:'HTML',       icon:'devicon-html5-plain colored' },
+  { name:'CSS',        icon:'devicon-css3-plain colored' },
+  { name:'JavaScript', icon:'devicon-javascript-plain colored' },
+  { name:'Tailwind',   icon:'devicon-tailwindcss-plain colored' },
+  { name:'Angular',    icon:'devicon-angularjs-plain colored' },
+  { name:'PHP',        icon:'devicon-php-plain colored' },
+  { name:'Laravel',    icon:'devicon-laravel-plain colored' },
+  { name:'Java',       icon:'devicon-java-plain colored' },
+  { name:'Spring',     icon:'devicon-spring-plain colored' },
+    { name:'React Native', icon:'devicon-react-original colored' },
+    { name:'REST API',    icon:'fa-solid fa-server text-gray-500' },
+    {name:'Swagger',      icon:'fa-solid fa-file-lines text-gray-500' },
+  { name:'MySQL',      icon:'devicon-mysql-plain colored' },
+  { name:'Docker',     icon:'devicon-docker-plain colored' },
+  { name:'Git',        icon:'devicon-git-plain colored' },
+  { name:'GitHub',     icon:'devicon-github-original colored' },
+  
+];
+const ticContainer = document.getElementById('tech-icons');
+techs.forEach(t => {
+  const div = document.createElement('div');
+  div.className = 'tech-pill';
+  div.innerHTML = `<i class="${t.icon} text-3xl"></i><span>${t.name}</span>`;
+  ticContainer.appendChild(div);
+});
+
+/* ─── Active nav link ─────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 110) cur = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+});
+
+/* ─── Contact form ──────────────────────────── */
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours…';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Envoyer le message';
+    btn.disabled = false;
+    const ok = document.getElementById('form-ok');
+    ok.classList.remove('hidden');
+    this.reset();
+    setTimeout(() => ok.classList.add('hidden'), 4500);
+  }, 1600);
+});
+</script>
+</body>
+</html>
