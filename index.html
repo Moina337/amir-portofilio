@@ -1352,35 +1352,42 @@
     /* ============================================================
        RESPONSIVE
     ============================================================ */
-    @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-visual { order: -1; }
-      .hero-avatar-wrap { width: 220px; }
-      .hero-avatar-blob { width: 200px; height: 200px; }
-      .hero-floating-card { display: none; }
-      .bring-grid { grid-template-columns: repeat(2, 1fr); }
-      .stack-grid { grid-template-columns: repeat(2, 1fr); }
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
-      .formation-grid { grid-template-columns: repeat(2, 1fr); }
-      .interests-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-layout { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.5rem; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 4rem 0; }
-      .bring-grid { grid-template-columns: 1fr; }
-      .stack-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .formation-grid { grid-template-columns: 1fr; }
-      .lang-grid { grid-template-columns: 1fr; }
-      .interests-grid { grid-template-columns: repeat(2, 1fr); }
-      .interests-quote { flex-direction: column; text-align: center; gap: 0.75rem; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .hero-stats { flex-wrap: wrap; gap: 1rem; }
-    }
+   @media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
 
+  section { padding: 4rem 0; }
+
+  /* ✅ FORCER 1 SEULE COLONNE PARTOUT */
+  .hero-grid,
+  .bring-grid,
+  .stack-grid,
+  .projects-grid,
+  .formation-grid,
+  .lang-grid,
+  .interests-grid,
+  .contact-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ✅ Fix alignements */
+  .interests-quote {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    
+    gap: 2rem;
+  }
+}
     /* ============================================================
        REDUCED MOTION
     ============================================================ */
@@ -1504,7 +1511,7 @@
         </div>
       </div>
       <!-- Right: avatar visual -->
-      <div class="hero-visual reveal" style="position: relative; top: -173px;">
+      <div class="hero-visual reveal sm:top-[-120px]">
         <div class="hero-avatar-wrap">
           <div class="hero-avatar-ring" aria-hidden="true"></div>
           <div class="hero-avatar-ring2" aria-hidden="true"></div>
@@ -1584,7 +1591,7 @@
     <div class="stack-grid">
 
       <!-- Backend — featured -->
-      <div class="glass-card stack-card featured reveal" style="grid-column: span 2;">
+      <div class="glass-card stack-card featured reveal" style="">
         <div class="stack-cat-header">
           <span class="stack-cat-icon">🚀</span>
           <span class="stack-cat-title">Backend</span>
