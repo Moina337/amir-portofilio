@@ -1383,10 +1383,17 @@
   }
 
   .hero-stats {
-    flex-direction: column;
-    
-    gap: 2rem;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 123px;
+}
+
+.hero-stats > * {
+  width: calc(50% - 1rem); /* ✅ 2 par ligne */
+  text-align: center;
+}
 }
     /* ============================================================
        REDUCED MOTION
@@ -1511,7 +1518,7 @@
         </div>
       </div>
       <!-- Right: avatar visual -->
-      <div class="hero-visual reveal sm:top-[-120px]">
+      <div class="hero-visual reveal sm:top-[-120px]" style="position: relative; top: -134px;">
         <div class="hero-avatar-wrap">
           <div class="hero-avatar-ring" aria-hidden="true"></div>
           <div class="hero-avatar-ring2" aria-hidden="true"></div>
@@ -1536,7 +1543,7 @@
 <!-- ======================================================
      2. WHAT I BRING
 ====================================================== -->
-<section id="what-i-bring">
+<section id="what-i-bring" style="position: relative; top: -123px;">
   <div class="container">
     <div class="reveal">
       <div class="section-label">Valeur ajoutée</div>
@@ -1591,7 +1598,7 @@
     <div class="stack-grid">
 
       <!-- Backend — featured -->
-      <div class="glass-card stack-card featured reveal" style="">
+      <div class="glass-card stack-card featured reveal">
         <div class="stack-cat-header">
           <span class="stack-cat-icon">🚀</span>
           <span class="stack-cat-title">Backend</span>
