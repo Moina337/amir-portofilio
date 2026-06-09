@@ -353,7 +353,7 @@
     .badge-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.5rem;
       margin-bottom: 2.5rem;
     }
     .badge {
@@ -467,7 +467,6 @@
     @keyframes rotate-ring { to { transform: rotate(360deg); } }
     .hero-avatar-blob {
       width: 260px; height: 260px;
-      border-radius: 50%;
       border: 2px solid var(--border-accent);
       overflow: hidden;
       margin: 0 auto;
@@ -476,6 +475,7 @@
       z-index: 1;
     }
     .hero-avatar-blob img {
+      
       width: 100%; height: 100%;
       object-fit: cover;
     }
@@ -1474,14 +1474,14 @@
         <div class="badge-row reveal">
           <span class="badge">🎓 Étudiant motivé</span>
           <span class="badge">💻 Open to Remote</span>
-          <span class="badge">🌍 International-Ready</span>
+          <span class="badge">🚀 Passionné par les APIs</span>
         </div>
         <div class="hero-btns reveal">
           <a href="#projets" class="btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             Voir mes projets
           </a>
-          <a href="#" class="btn-outline" download aria-label="Télécharger mon CV">
+          <a href="files/amir@soilihi.cv.pdf" class="btn-outline" download aria-label="Télécharger mon CV">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download CV
           </a>
@@ -1520,15 +1520,15 @@
         </div>
       </div>
       <!-- Right: avatar visual -->
-      <div class="hero-visual reveal sm:top-[-120px]" style="position: relative; top: -234px;">
+      <div class="hero-visual reveal sm:top-[-120px]" style="position: relative; top: -164px;">
         <div class="hero-avatar-wrap">
           <div class="hero-avatar-ring" aria-hidden="true"></div>
           <div class="hero-avatar-ring2" aria-hidden="true"></div>
           <div class="hero-avatar-blob">
             <!-- Profile photo placeholder — replace src with real photo -->
             <div class="hero-avatar-blob">
-  <div class="avatar-placeholder">
-    <img src="images/amir.jpg" alt="Photo de profil d'Amir Soilihi" class="avatar-img" />
+  <div class="avatar-placeholder" style="">
+    <img src="images/profil.jpeg" alt="Photo de profil d'Amir Soilihi" class="avatar-img" />
   </div>
 </div>
           </div>
@@ -2428,7 +2428,7 @@
             </div>
           </a>
         </div>
-        <a href="#" download class="contact-cv-btn" aria-label="Télécharger le CV">
+        <a href="files/amir@soilihi.cv.pdf" download class="contact-cv-btn" aria-label="Télécharger le CV">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Télécharger mon CV (PDF)
         </a>
