@@ -1466,13 +1466,11 @@
         </div>
         <h1 class="hero-name reveal">Amiri<br /><span>Soilihi</span></h1>
         <div class="hero-typewriter reveal" id="typewriter" aria-label="Backend Engineer — Spring Boot Developer — Problem Solver"></div>
-        <p class="hero-desc reveal">
-        Étudiant en Génie Logiciel, spécialisé en développement Full Stack (Spring Boot & Angular), je développe des APIs REST sécurisées 
-        et des applications web performantes basées sur des architectures propres.
-
-        Rigoureux et orienté résultats, je suis ouvert à toute opportunité (stage, alternance ou collaboration) me permettant de contribuer 
-        à des projets ambitieux et de continuer à progresser dans un environnement technique exigeant.
-        </p>
+      <p class="hero-desc reveal">
+  Je transforme des besoins métier en APIs fiables, sécurisées et scalables. 
+  Spécialisé Java & Spring Boot, ouvert au remote, disponible pour un stage 
+  ou une collaboration.
+</p>
         <div class="badge-row reveal">
           <span class="badge">🎓 Étudiant motivé</span>
           <span class="badge">💻 Open to Remote</span>
@@ -1646,6 +1644,7 @@
         </div>
         <div class="stack-badges">
           <span class="tech-badge"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+          <span class="tech-badge"><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
           <span class="tech-badge">📐 MERISE</span>
           <span class="tech-badge">📊 UML</span>
         </div>
@@ -1663,7 +1662,6 @@
           <span class="tech-badge"><i class="devicon-git-plain colored"></i> Git</span>
           <span class="tech-badge"><i class="devicon-github-original"></i> GitHub</span>
           <span class="tech-badge">☁️ Cloud Deploy</span>
-          <span class="tech-badge">🔗 Ngrok</span>
         </div>
       </div>
 
@@ -1715,79 +1713,199 @@
     </div>
     <div class="projects-grid">
 
-     <!-- PROJET 1 — Featured -->
+      <!-- PROJET FEATURED — SMARTHIRE -->
+
+<div class="glass-card project-card reveal">
+
+  <div class="project-img-wrap">
+    <img
+      src="images/smarthire.png"
+      alt="SmartHire — Plateforme de recrutement"
+      loading="lazy"
+    />
+
+```
+<div class="project-img-overlay"></div>
+
+<span class="project-featured-badge">⭐ Featured</span>
+
+<div class="project-author-avatar">
+  <img
+    src="images/smarthire.png"
+    alt="Amiri Soilihi"
+  />
+</div>
+```
+
+  </div>
+
+  <div class="project-body">
+<div class="project-tags">
+  <span class="project-tag">Angular</span>
+  <span class="project-tag">Spring Boot</span>
+  <span class="project-tag">JWT</span>
+  <span class="project-tag">OAuth2 Google</span>
+  <span class="project-tag">PostgreSQL</span>
+  <span class="project-tag">Tailwind CSS</span>
+</div>
+
+<h3 class="project-title">💼 SmartHire</h3>
+
+<p class="project-subtitle">
+  Plateforme de recrutement interne pour entreprise
+</p>
+
+<p class="project-desc short-desc">
+  SmartHire est une plateforme de recrutement permettant aux candidats
+  de consulter les offres, déposer leur CV, postuler en ligne
+  et suivre leurs candidatures.
+
+  Les administrateurs RH peuvent gérer les offres d'emploi,
+  consulter les candidats et piloter tout le processus de recrutement.
+</p>
+
+<div class="project-more-content hidden">
+
+  <ul class="project-features">
+    <li>Authentification JWT sécurisée</li>
+    <li>Connexion Google OAuth2</li>
+    <li>Gestion des rôles Admin / Candidat</li>
+    <li>Gestion des offres d'emploi</li>
+    <li>Gestion des candidatures</li>
+    <li>Consultation et téléchargement des CV</li>
+    <li>API REST documentée avec Swagger</li>
+    <li>Architecture MVC propre avec DTO et Mapper</li>
+    <li>Tests unitaires avec JUnit et Mockito</li>
+  </ul>
+
+  <div class="project-learn">
+    <strong>📚 Ce que j'ai appris</strong>
+
+    <ul>
+      <li>Développer une application Fullstack Angular + Spring Boot</li>
+      <li>Sécuriser une API avec Spring Security et JWT</li>
+      <li>Mettre en place OAuth2 Google Login</li>
+      <li>Créer une architecture REST professionnelle</li>
+      <li>Écrire des tests unitaires avec Mockito</li>
+      <li>Concevoir un workflow complet de recrutement</li>
+      <li>Gérer l'upload et la consultation de documents</li>
+    </ul>
+  </div>
+
+</div>
+
+
+<div class="project-btns">
+
+  <a
+    href="https://github.com/Moina337/smarthire.client"
+    target="_blank"
+    rel="noopener"
+    class="project-btn gh">
+    Frontend Angular
+  </a>
+
+  <a
+    href="https://github.com/Moina337/smartHire.api"
+    target="_blank"
+    rel="noopener"
+    class="project-btn gh">
+    Backend Spring Boot
+  </a>
+
+  <a
+    href="demos/smarthire.mp4"
+    target="_blank"
+    rel="noopener"
+    class="project-btn api">
+    🎥 Démo
+  </a>
+
+</div>
+
+  </div>
+
+</div>
+<!-- PROJET 2 — Featured -->
+
 <div class="glass-card project-card reveal">
   <div class="project-img-wrap">
     <img
-      src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=700&q=80&auto=format&fit=crop"
-      alt="Salon Master — SaaS de gestion de salon de coiffure"
+      src="images/salonmaster.jpeg"
+      alt="Salon Master API - Backend Spring Boot"
       loading="lazy"
     />
     <div class="project-img-overlay"></div>
-    <span class="project-featured-badge">⭐ Featured</span>
+    
 
-    <div class="project-author-avatar">
-      <img
-        src="https://ui-avatars.com/api/?name=Amiri+Soilihi&background=1D9E75&color=0D1117&bold=true&size=88"
-        alt="Amiri Soilihi — auteur du projet"
-      />
-    </div>
+<div class="project-author-avatar">
+  <img
+    src="images/salonmaster.jpeg"
+    alt="Amiri Soilihi"
+  />
+</div>
+
+
   </div>
 
   <div class="project-body">
 
-    <div class="project-tags">
-      <span class="project-tag">Spring Boot</span>
-      <span class="project-tag">Angular</span>
-      <span class="project-tag">Docker</span>
-      <span class="project-tag">JWT</span>
-      <span class="project-tag">Ngrok</span>
-    </div>
 
-    <h3 class="project-title">💼 Salon Master</h3>
-    <p class="project-subtitle">SaaS Fullstack de gestion de salon de coiffure</p>
+<div class="project-tags">
+  <span class="project-tag">Spring Boot</span>
+  <span class="project-tag">PostgreSQL</span>
+  <span class="project-tag">JWT</span>
+  <span class="project-tag">Swagger</span>
+  <span class="project-tag">Docker</span>
+</div>
 
-    <p class="project-desc">
-      Plateforme SaaS fullstack permettant la gestion de salons de coiffure avec une API sécurisée,
-      une interface Angular moderne et un déploiement conteneurisé accessible via Ngrok.
-    </p>
+<h3 class="project-title">💼 Salon Master API</h3>
+<p class="project-subtitle">Backend Spring Boot pour la gestion de salons de coiffure</p>
 
-    <ul class="project-features">
-      <li>Application fullstack (Spring Boot + Angular)</li>
-      <li>Authentification sécurisée avec JWT</li>
-      <li>API REST documentée avec OpenAPI / Swagger</li>
-      <li>Architecture propre avec DTO, MapStruct et Lombok</li>
-      <li>Déploiement avec Docker et Docker Compose</li>
-      <li>Exposition publique de l’application via Ngrok</li>
-    </ul>
+<p class="project-desc">
+  API REST sécurisée permettant la gestion des salons de coiffure, des rendez-vous,
+  des clients et des prestations. Le projet met en œuvre une architecture backend
+  moderne basée sur Spring Boot, Spring Security et PostgreSQL.
+</p>
 
-    <!-- 🔥 Bloc apprentissage amélioré -->
-    <div class="project-learn">
-      <strong>📚 Ce que j'ai appris</strong>
-      <ul>
-        <li>Développer une application fullstack complète (Backend + Frontend)</li>
-        <li>Sécuriser une API avec Spring Security et JWT</li>
-        <li>Conception d’une architecture SaaS multi-tenant permettant la gestion de plusieurs salons avec isolation des données</li>
-        <li>Concevoir une API contract-first avec OpenAPI</li>
-        <li>Connecter Angular à un backend Spring Boot</li>
-        <li>Déployer une application avec Docker Compose</li>
-        <li>Tester et exposer une application locale avec Ngrok</li>
-      </ul>
-    </div>
+<ul class="project-features">
+  <li>API REST développée avec Spring Boot 3</li>
+  <li>Authentification et autorisation avec JWT</li>
+  <li>Documentation API avec OpenAPI / Swagger</li>
+  <li>Architecture en couches (Controller, Service, Repository)</li>
+  <li>Utilisation de DTO, MapStruct et Lombok</li>
+  <li>Gestion des données avec PostgreSQL</li>
+  <li>Conteneurisation avec Docker</li>
+</ul>
 
-    <div class="project-btns">
-      <a href="#" class="project-btn gh" aria-label="Voir le code GitHub de Salon Master">
-        <!-- SVG -->
-        Voir le code
-      </a>
+<div class="project-learn">
+  <strong>📚 Ce que j'ai appris</strong>
+  <ul>
+    <li>Concevoir une API REST professionnelle avec Spring Boot</li>
+    <li>Sécuriser une application avec Spring Security et JWT</li>
+    <li>Mettre en place une architecture propre et maintenable</li>
+    <li>Utiliser DTO et MapStruct pour séparer les couches applicatives</li>
+    <li>Documenter une API avec OpenAPI / Swagger</li>
+    <li>Manipuler les données avec Spring Data JPA et PostgreSQL</li>
+    <li>Déployer une application avec Docker</li>
+  </ul>
+</div>
 
-      <a href="#" class="project-btn api" aria-label="Documentation API Salon Master">
-        📄 Documentation API
-      </a>
-    </div>
+<div class="project-btns">
+  <a
+    href="https://github.com/Moina337/salonmaster.api"
+    target="_blank"
+    class="project-btn gh"
+    aria-label="Voir le code GitHub de Salon Master API"
+  >
+    Voir le code
+  </a>
+
+</div>
 
   </div>
 </div>
+
 
 
       <div class="glass-card project-card reveal">
@@ -1858,7 +1976,7 @@
   </div>
 </div>
 
-      <!-- PROJET 2 -->
+      <!-- PROJET 3 -->
       <div class="glass-card project-card reveal">
         <div class="project-img-wrap">
           <img
@@ -1897,7 +2015,7 @@
             Architecture MVC Laravel, gestion de rôles, déploiement Docker en production.
           </div>
           <div class="project-btns">
-            <a href="#" class="project-btn gh" aria-label="Voir le code GitHub de Sine Saloum">
+            <a href="https://github.com/Moina337/sine-electronic" class="project-btn gh" aria-label="Voir le code GitHub de Sine Saloum">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
               Voir le code
             </a>
@@ -1942,7 +2060,7 @@
             <li>Score Lighthouse 90+</li>
           </ul>
           <div class="project-btns">
-            <a href="" class="project-btn gh" aria-label="Voir le code GitHub du portfolio">
+            <a href="https://github.com/Moina337/amir-portofilio" class="project-btn gh" aria-label="Voir le code GitHub du portfolio">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
               Voir le code
             </a>
@@ -1992,14 +2110,38 @@
       <div class="timeline-item">
         <div class="timeline-date">2024 – présent</div>
         <h3 class="timeline-title">👨🏫 Tuteur en Programmation</h3>
-        <p class="timeline-company">Bénévolat · Dakar, Sénégal</p>
+        <p class="timeline-company">Bénévolat </p>
         <ul class="timeline-bullets">
-          <li>Encadrement d'étudiants en Java et développement web</li>
+          <li>Encadrement d'étudiants en développement web</li>
           <li>Explication des bases de la programmation et algorithmique</li>
           <li>Création d'exercices et supports pédagogiques</li>
         </ul>
         <p class="timeline-result">→ Renforcement par l'enseignement · Développement de la pédagogie</p>
       </div>
+
+  
+<div class="timeline-item">
+
+  <div class="timeline-date">2019 – 2024</div>
+
+  <h3 class="timeline-title">🎓 Tuteur en Mathématiques et Physique</h3>
+
+  <p class="timeline-company">Accompagnement scolaire</p>
+
+  <ul class="timeline-bullets">
+    <li>Préparation et accompagnement d'élèves aux examens</li>
+    <li>Explication des concepts de mathématiques et de physique</li>
+    <li>Aide à la résolution d'exercices et de problèmes complexes</li>
+    <li>Suivi personnalisé et adaptation des méthodes d'apprentissage</li>
+  </ul>
+
+  <p class="timeline-result">
+    → Plus de 3 ans d'expérience dans l'accompagnement pédagogique et la transmission des connaissances
+  </p>
+
+</div>
+
+
 
       <div class="timeline-item">
         <div class="timeline-date">2023 – présent</div>
@@ -2035,7 +2177,7 @@
       </div>
       <div class="glass-card formation-card reveal">
         <div class="formation-icon">🎓</div>
-        <div class="formation-year">2023 – 2024</div>
+        <div class="formation-year">2022 – 2024</div>
         <h3 class="formation-degree">DUT</h3>
         <p class="formation-school">Génie Informatique</p>
         <p class="formation-desc">Bases solides en programmation, algorithmique, bases de données et systèmes.</p>
@@ -2074,18 +2216,32 @@
         </div>
       </div>
       <div class="glass-card lang-card reveal">
-        <div class="lang-header">
-          <span class="lang-flag">🇬🇧</span>
-          <div>
-            <div class="lang-name">Anglais</div>
-            <div class="lang-level">Professionnel — B2</div>
-          </div>
-        </div>
-        <div class="lang-bar-wrap">
-          <div class="lang-bar" data-width="70"></div>
-        </div>
-        <p class="lang-note">Lecture technique, documentation, communication écrite</p>
-      </div>
+  <div class="lang-header">
+    <span class="lang-flag">🇬🇧</span>
+    <div>
+      <div class="lang-name">Anglais</div>
+      <div class="lang-level">Débutant — Notions de base</div>
+    </div>
+  </div>
+  <div class="lang-bar-wrap">
+    <div class="lang-bar" data-width="15"></div>
+  </div>
+  <p class="lang-note">Vocabulaire technique de base, apprentissage en cours</p>
+</div>
+
+<div class="glass-card lang-card reveal">
+  <div class="lang-header">
+    <span class="lang-flag">🇸🇦</span>
+    <div>
+      <div class="lang-name">Arabe</div>
+      <div class="lang-level">Débutant — Notions de base</div>
+    </div>
+  </div>
+  <div class="lang-bar-wrap">
+    <div class="lang-bar" data-width="15"></div>
+  </div>
+  <p class="lang-note">Lecture de base, apprentissage en cours</p>
+</div>
     </div>
   </div>
 </section>
@@ -2303,7 +2459,7 @@
         <a href="https://wa.me/2693370397" target="_blank" rel="noopener" aria-label="WhatsApp">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         </a>
-        <a href="https://www.facebook.com/share/18SmRAh9fz/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://www.facebook.com/share/1GJyW86j9g/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
         <a href="https://www.tiktok.com/@moinammaoueni?_r=1&_t=ZS-95xR9BKEfcC" target="_blank" rel="noopener" aria-label="TikTok">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.82a8.19 8.19 0 0 0 4.77 1.52V6.89a4.85 4.85 0 0 1-1-.2z"/></svg>
         </a>
